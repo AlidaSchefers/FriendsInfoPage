@@ -1,11 +1,13 @@
 const router = require('express').Router()
+const express = require('express')
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const {findOne} = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 
-
+router.use(express.json())
 const friendsInfoAPIRouter = require('./friendsInfoAPI')
 router.use('/getFriendsInfo', friendsInfoAPIRouter)
 
@@ -28,8 +30,11 @@ router.post('/login', async (req, res, next) => { //should review when to use ne
         const UserDB = await User.findOne({email: req.body.email}) //restrict login to email, not username
         console.log(UserDB)
         if(bcrypt.compare(req.body.password, UserDB.password)) {
-            console.log("Good credentials")
-            res.status(200).json(UserDB)
+            const token = jwt.sign({"_id": UserDB._id}, process.env.JWT_SECRET_KEY)
+            res.status(200).send(token)
+            // res.status(200).json(UserDB)
+        }else{
+            res.status(500).json("Invalid credentials")
         }
     } catch (error) {
         res.status(500).json({message: error.message || error})
