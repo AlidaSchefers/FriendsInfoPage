@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
     username: {type: String, required: true, minlength: 3, maxlength: 25},
     email: {type: String, required: true},
-    password: {type: String, required: true, minlength: 3, maxlength: 25},
+    password: {type: String, required: true, minlength: 3, maxlength: 100},
 })
 
 // friends: {} //and then we insert an object inside this empty object?
