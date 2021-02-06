@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev", 
+    "start": "npm run dev",
     "dev": "nodemon server.js",
     "pro": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.11.15",
