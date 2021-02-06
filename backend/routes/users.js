@@ -7,7 +7,7 @@ require('dotenv').config()
 
 
 const friendsInfoAPIRouter = require('./friendsInfoAPI')
-router.use('/getFriendsInfoTimeZone', friendsInfoAPIRouter)
+router.use('/getFriendsInfo', friendsInfoAPIRouter)
 
 // console.log(`api key in users.js: ${process.env.AMDOREN_APIKEY}`)
 
