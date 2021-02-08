@@ -34,14 +34,14 @@ const weatherEndpoint = 'http://api.openweathermap.org/data/2.5/weather'
 const weatherAPIKey = process.env.WEATHER_APIKEY
 router.post('/weather', async (req, res, next) => {
     try {
-        console.log(req.body.location) //this successfully logs the location (New York)
+        // console.log(req.body.location) //this successfully logs the location (London)
         const endpoint = `${weatherEndpoint}?q=${req.body.location}&appid=${weatherAPIKey}`
         // const endpoint = `${weatherEndpoint}?appid=${weatherAPIKey}&q=${req.body.location}`
         // console.log(endpoint) //works fine
         // const {weather, main} = await axios.get(endpoint)
-        const weatherAPIRes = await axios.get(endpoint)
-        res.send(weatherAPIRes)
-        console.log(weatherAPIRes)
+        // const {data} = await axios.get(endpoint)
+        const {data} = await axios.get(endpoint)
+        res.send(data)
     } catch (error) {
         res.status(500).json({message: error.message || error})
     }
@@ -88,8 +88,8 @@ router.post('/news', async (req, res, next) => {
         // const endpoint = `${newsAPIEndpoint}?apiKey=${newsapiAPIKey}&language=${req.body.language}&sortBy=${req.body.sortBy}&country=${req.body.country}`
         const endpoint = 'https://newsapi.org/v2/everything?q=apple&from=2021-02-05&to=2021-02-05&sortBy=popularity&apiKey=40db0250766d43f6990161891ce60161'
         // const {articles} = await axios.get(endpoint)
-        const newsData = await axios.get(endpoint)
-        res.send(newsData)
+        const {data} = await axios.get(endpoint)
+        res.send(data)
         // console.log(articles[0])
     } catch (error) {
         res.status(500).json({message: error.message || error})
