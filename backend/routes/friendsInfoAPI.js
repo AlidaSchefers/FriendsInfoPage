@@ -8,9 +8,11 @@ router.use(express.json())
     //Powered by <a href="https://www.amdoren.com">Amdoren</a>
 
 //get timezone
+//gives daylight savings info too.
+//gives offset in minutes ("offset" in response). e.g. for New York (-5hr) it's -300 min
 const timeZoneEndpoint = 'https://www.amdoren.com/api/timezone.php'
 const timeZoneAPIKey = process.env.TIMEZONE_APIKEY
-router.post('/', async (req, res, next) => {
+router.post('/timezone', async (req, res, next) => {
     try {
         console.log(req.body)
         //assume location is in correct format already. e.g. 'New York'
@@ -30,66 +32,47 @@ router.post('/', async (req, res, next) => {
         // - Country, State, City eg "USA, New York, Bronx"
 
 //get weather
+//this weather API gives you a timzone! 
+//gives offset in seconds ("timezone" in response body). e.g. for New York (-5hr) it's -18000 seconds
 const weatherEndpoint = 'http://api.openweathermap.org/data/2.5/weather'
 const weatherAPIKey = process.env.WEATHER_APIKEY
 router.post('/weather', async (req, res, next) => {
     try {
-        // console.log(req.body.location) //this successfully logs the location (London)
         const endpoint = `${weatherEndpoint}?q=${req.body.location}&appid=${weatherAPIKey}`
-        // const endpoint = `${weatherEndpoint}?appid=${weatherAPIKey}&q=${req.body.location}`
-        // console.log(endpoint) //works fine
-        // const {weather, main} = await axios.get(endpoint)
-        // const {data} = await axios.get(endpoint)
         const {data} = await axios.get(endpoint)
-        res.send(data)
+        const usefulData = {
+            weatherId: data.weather[0].id,
+            mainWeather: data.weather[0].main,
+            weatherDesc: data.weather[0].description,
+            kelvinTemp: data.main.temp,
+            secondsTimezoneOffset: data.timezone
+        }
+        res.json(usefulData)
+        // res.send(data)
     } catch (error) {
         res.status(500).json({message: error.message || error})
     }
     next()
 })
+//use 
+
     //location format options in weather API:
         //cityname
         //cityname,statecode
         //cityname,statecode,countrycode
 
-//get news from NewsCatcher.
-const newsCatcherEndpoint = 'https://newscatcher.p.rapidapi.com/v1/latest_headlines?topic=news&lang=en&country=DE&media=True'
-const newsCatcherAPIKey = ''
-
-
-// const options = { //this automatically gets it when run npm start
-//   method: 'GET',
-//   url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
-//   params: {topic: 'news', lang: 'en', country: 'DE', media: 'True'},
-//   headers: {
-//     'x-rapidapi-key': process.env.NEWSCATCHER_APIKEY,
-//     'x-rapidapi-host': 'newscatcher.p.rapidapi.com'
-//   }
-// };
-
-// axios.request(options).then(function (response) {
-// 	console.log(response.data.articles[0]);
-// }).catch(function (error) {
-// 	console.error(error);
-// });
-
 
 //get news from NewsAPI
-//https://newsapi.org/v2/everything?q=bitcoin&apiKey=API_KEY
-const newsAPIEndpoint = 'https://newsapi.org/v2/everything'
+//need the country in its code (e.g. Germany is de, France is fr)
+const newsapiAPIEndpoint = 'https://newsapi.org/v2/top-headlines'
 const newsapiAPIKey = process.env.NEWSAPI_APIKEY
-//language: en
-//sortBy: popularity
-//country: de
-
 router.post('/news', async (req, res, next) => {
     try {
-        // const endpoint = `${newsAPIEndpoint}?apiKey=${newsapiAPIKey}&language=en&sortBy=popularity&country=de`
-        // const endpoint = `${newsAPIEndpoint}?apiKey=${newsapiAPIKey}&language=${req.body.language}&sortBy=${req.body.sortBy}&country=${req.body.country}`
-        const endpoint = 'https://newsapi.org/v2/everything?q=apple&from=2021-02-05&to=2021-02-05&sortBy=popularity&apiKey=40db0250766d43f6990161891ce60161'
-        // const {articles} = await axios.get(endpoint)
+        const endpoint = `${newsapiAPIEndpoint}?category=general&country=${req.body.country}&apiKey=${newsapiAPIKey}`
+        //specifying a language like English in a foreign country either gets no results or an error
         const {data} = await axios.get(endpoint)
-        res.send(data)
+        // res.send(data)
+        res.send(data.articles[0])
         // console.log(articles[0])
     } catch (error) {
         res.status(500).json({message: error.message || error})
