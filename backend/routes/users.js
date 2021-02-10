@@ -4,6 +4,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const {findOne} = require('mongoose')
 const jwt = require('jsonwebtoken')
+const verify = require('../middleware/verifyToken')
 
 require('dotenv').config()
 
@@ -42,9 +43,9 @@ router.post('/login', async (req, res, next) => { //should review when to use ne
 })
 
 
-router.post('/createFriend', async (req, res, next) => {
+router.post('/createFriend', verify, async (req, res, next) => {
     try {
-        let UserDB = await User.findOne({email: req.body.email}) //restrict login to email, not username
+        let UserDB = await User.findOne({_id: req.user._id}) //restrict login to email, not username
         //adds a new friend
         UserDB.friends = [...UserDB.friends, {name: req.body.name, location: req.body.location, timeOffset: 8}] //now we need to do the timezoneAPI before friend assignment!
         await UserDB.save()
@@ -62,9 +63,9 @@ router.post('/createFriend', async (req, res, next) => {
     }
 })
 
-router.post('/deleteFriend', async (req, res, next) => {
+router.post('/deleteFriend', verify, async (req, res, next) => {
     try {
-        let UserDB = await User.findOne({email: req.body.email})
+        let UserDB = await User.findOne({_id: req.user._id}) //req.user is defined by the verify middleware just before this arrow function
         UserDB.friends = UserDB.friends.filter(friend => friend.name != req.body.name)
         await UserDB.save()
         res.send(UserDB)
