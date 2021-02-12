@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const FriendSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
-    location: {type: String, required: true},
-    timeOffset: {type: String}
+    location: {type: String, required: true}
 })
 
 const UserSchema = new mongoose.Schema({
