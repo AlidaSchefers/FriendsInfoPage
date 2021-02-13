@@ -1,9 +1,11 @@
 // import logo from './logo.svg';
 // import './App.css';
+import React from 'react'
+import Frontpage from './components/Frontpage'
 
 function App() {
   return (
-    
+    <Frontpage />
   );
 }
 
