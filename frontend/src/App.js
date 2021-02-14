@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
 // import './App.css';
 import React from 'react'
-import Frontpage from './components/Frontpage'
+import Navigation from './components/Navigation'
 
 function App() {
   return (
-    <Frontpage />
+    <Navigation />
   );
 }
 
