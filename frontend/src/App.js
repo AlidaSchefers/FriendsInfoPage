@@ -1,15 +1,14 @@
 // import logo from './logo.svg';
 // import './App.css';
 import React from 'react'
-import Navigation from './components/Navigation'
+// import Navigation from './components/Navigation'
+import LogDecision from './components/LogDecision'
 
 function App() {
   return (
-    <Navigation />
+    <LogDecision />
   );
 }
-
-
 export default App;
 
 
@@ -34,3 +33,5 @@ export default App;
 //     </div>
 //   );
 // }
+
+// export default App;
