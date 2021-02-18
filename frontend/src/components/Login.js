@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Form from './Form'
+import {useTokenContext} from '../contexts/tokenContext' //this file contains the useContext
 
 const inputs = [
     {name: 'email', type: 'text', placeholder: 'Enter Your Email'},
@@ -9,22 +10,24 @@ const inputs = [
 
 const submitMsg = "login"
 
-const submitFunc = (formData, resetForm) => {
-    axios.post('http://localhost:4000/users/login', formData)
-    .then(res => {
-        alert("Logged in.")
-        console.log(`token: ${res.data}`)
-        localStorage.setItem('token', res.data)
-
-        resetForm()
-    })
-    .catch(err => {
-        console.log(err)
-        alert('Invalid credentials.')
-    })
-}
-
 export default function Login() {
+    const {setToken} = useTokenContext()
+    
+    const submitFunc = (formData, resetForm) => {
+        axios.post('http://localhost:4000/users/login', formData)
+        .then(res => {
+            alert("Logged in.")
+            // console.log(`token Login file: ${res.data}`)
+            // localStorage.setItem('token', res.data)
+            setToken(res.data)
+    
+            resetForm()
+        })
+        .catch(err => {
+            console.log(err)
+            alert('Invalid credentials.')
+        })
+    } //now able to access the context, now that it is inside the fuhnction
     return(
         <div id="login">
             This is the login page
