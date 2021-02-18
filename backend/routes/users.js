@@ -14,6 +14,9 @@ router.use('/getFriendsInfo', friendsInfoAPIRouter)
 
 // console.log(`api key in users.js: ${process.env.AMDOREN_APIKEY}`)
 
+router.get('/checktoken', verify, (req, res) => {res.status(202).send('')})
+//we know if valid token by the res status (202 vs some other status)
+
 router.post('/signup', async (req, res, next) => {
     try {
         // console.log(req.body)
