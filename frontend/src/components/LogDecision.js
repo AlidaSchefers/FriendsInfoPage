@@ -1,14 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Navigation from './Navigation'
 import DisplayFriends from './DisplayFriends'
+import {useTokenContext} from '../contexts/tokenContext'
 
 export default function LogDecision() {
-    const token = localStorage.getItem('token')
-    const [isLoggedIn, setIsLoggedIn] = useState('false')
-    useEffect( () => {
-        setIsLoggedIn(Boolean(token))
-    },
-    [token])
+    // const token = localStorage.getItem('token')
+    // // const data = useContext(TokenContext) //extracts data
+    // const [isLoggedIn, setIsLoggedIn] = useState('false')
+    // useEffect( () => {
+    //     setIsLoggedIn(Boolean(token))
+    // },
+    // [token])
+    const {token, setToken} = useTokenContext()
+    const isLoggedIn = token !== ""
 
     if(isLoggedIn){
         return (
@@ -18,8 +22,7 @@ export default function LogDecision() {
                 Result of isLoggedIn: {isLoggedIn}
                 <button
                         onClick={() => {
-                            localStorage.setItem('token', null)
-                            console.log(localStorage.getItem('token'))
+                            setToken('') //logging out. triggeres changing token
                         }}
                 >Logout</button>
             </div>
@@ -30,6 +33,7 @@ export default function LogDecision() {
                 You're NOT logged in. <br />
                 Token: {token} <br />
                 Result of isLoggedIn: {isLoggedIn}
+            <Navigation />
             </div>
         )
     }
