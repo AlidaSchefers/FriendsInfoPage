@@ -3,10 +3,14 @@
 import React from 'react'
 // import Navigation from './components/Navigation'
 import LogDecision from './components/LogDecision'
+import TokenContextProvider from './contexts/tokenContext'
+
 
 function App() {
-  return (
-    <LogDecision />
+  return ( //wrap the display with context provider that will provide global state. now all component
+    <TokenContextProvider>
+      <LogDecision />
+    </TokenContextProvider>
   );
 }
 export default App;
