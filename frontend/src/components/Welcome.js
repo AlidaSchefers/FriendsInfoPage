@@ -4,7 +4,7 @@ import React from 'react'
 export default function Welcome() {
     return(
         <div id="welcome">
-                Welcome to FriendsInfoPage where we will display your friends' info.
+                Welcome to FriendsInfoPage.
         </div>
     )
 }
