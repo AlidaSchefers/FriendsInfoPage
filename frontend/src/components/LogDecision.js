@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import Navigation from './Navigation'
 import DisplayFriends from './DisplayFriends'
 import {useTokenContext} from '../contexts/tokenContext'
+import Settings from './Settings'
 
 export default function LogDecision() {
     // const token = localStorage.getItem('token')
@@ -25,6 +26,7 @@ export default function LogDecision() {
                             setToken('') //logging out. triggeres changing token
                         }}
                 >Logout</button>
+            <Settings />
             </div>
         )
     }else{
