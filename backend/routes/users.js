@@ -45,10 +45,19 @@ router.post('/login', async (req, res, next) => { //should review when to use ne
     }
 })
 
+router.get('/getFriendsList', verify, async (req, res, next) => {
+    try {
+        let UserDB = await User.findOne({_id: req.user._id}) //restrict login to email, not username //req.user comes from the verify middleware
+        res.send(UserDB.friends)
+    } catch (error) {
+        res.status(500).json({message: error.message || error})
+    }
+})
+
 
 router.post('/createFriend', verify, async (req, res, next) => {
     try {
-        let UserDB = await User.findOne({_id: req.user._id}) //restrict login to email, not username
+        let UserDB = await User.findOne({_id: req.user._id}) //restrict login to email, not username //req.user comes from the verify middleware
         //adds a new friend
         UserDB.friends = [...UserDB.friends, {name: req.body.name, location: req.body.location, timeOffset: 8}] //now we need to do the timezoneAPI before friend assignment!
         await UserDB.save()
