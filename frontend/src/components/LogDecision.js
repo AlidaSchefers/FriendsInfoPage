@@ -20,7 +20,7 @@ export default function LogDecision() {
             <div>
                 You're logged in. <br />
                 Token: {token} <br />
-                Result of isLoggedIn: {isLoggedIn}
+                Result of isLoggedIn: {isLoggedIn} <br />
                 <button
                         onClick={() => {
                             setToken('') //logging out. triggeres changing token
