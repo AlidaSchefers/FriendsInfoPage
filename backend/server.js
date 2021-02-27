@@ -6,9 +6,7 @@ const databaseConnect = require('./databaseConnect')
 const CORs = require('cors')
 
 databaseConnect()
-server.use(CORs({
-    origin: ['http://localhost:3000'] //allows only my frontend server to connect with backend server
-}))
+server.use(CORs())
 server.use(express.static('public'))
 server.use(express.json()) //expect that every request potentially have JSON. All routes, just parse the body expecting it to be JSON.
 //just parses when it has data from req
