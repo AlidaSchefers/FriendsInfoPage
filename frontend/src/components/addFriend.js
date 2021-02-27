@@ -11,15 +11,16 @@ const submitMsg = "add friend"
 
 export default function createFriend() {
     const submitFunc = (formData, resetForm) => {
-        axios.post('http://localhost:4000/users/createFriend', formData)
+        axios.post('http://localhost:4000/users/createFriend', {...formData, 'auth-token':localStorage.getItem('token')})
         .then(res => {
             alert("New Friend Added.")
             // console.log(`token createFriend file: ${res.data}`)
             // localStorage.setItem('token', res.data)
-            console.log()
+            console.log(res.data);
             resetForm()
         })
         .catch(err => {
+            console.log('something went wrong')
             console.log(err)
         })
     } //now able to access the context, now that it is inside the fuhnction
