@@ -15,16 +15,9 @@ import axios from 'axios'
 // console.log('data from getFriendsList route') //this is the array of objects
 // console.log(data)
 
-// const rowsOfFriends = (res) => {
-//     let rows = ""
-//     for(let i = 0; i < res.length; i++) {
-//         rows += `<tr> <td>${res[i].name}</td> <td>${res[i].location}</td> </tr>`
-//     }
-//     return rows
-// }
-
 export default function FriendsList() {
     let rowsOfFriends = ""
+    let firstFriend = ""
     const token = localStorage.getItem('token')
 
     // const {data} = await axios.get('http://localhost:4000/users/getFriendsList', {headers: {'auth-token': token}})
@@ -37,12 +30,24 @@ export default function FriendsList() {
         // console.log(res.data)
         for(let i = 0; i < res.data.length; i++) {
             rowsOfFriends += `<tr><td>${res.data[i].name}</td><td>${res.data[i].location}</td></tr>`
+            console.log("rowsOfFriends inside for loop:")
+            console.log(rowsOfFriends)
         }
+        firstFriend += `<tr><td>${res.data[0].name}</td><td>${res.data[0].location}</td></tr>`
+        console.log("res.data:")
+        console.log(res.data[0].location)
+        console.log(`<tr><td>${res.data[0].name}</td><td>${res.data[0].location}</td></tr>`)
+        console.log("firstFriend")
+        console.log(firstFriend)
     })
     .catch(err => {
         console.log(err)
         alert('Invalid credentials.')
     })
+
+    console.log("rowsOfFriends outside of loop:")
+    console.log(rowsOfFriends)
+    
 
     return (
         <table>
@@ -51,9 +56,9 @@ export default function FriendsList() {
                     <th>Name</th>
                     <th>Location</th>
                 </tr>
-                {/* <tr> <td>Name1</td> <td>Location1</td> </tr> */}
-                {rowsOfFriends} 
-                {/* {rowsOfFriends(data)}  */}
+                {/* <tr><td>Name1</td><td>Paris, France</td></tr> */}
+                {/* {rowsOfFriends}  */}
+                {firstFriend} 
             </tbody>
         </table>
     )
