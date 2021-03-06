@@ -2,9 +2,9 @@ import React, {useContext, createContext, useState, useEffect} from 'react'
 import axios from 'axios'
 
 //useContex make a shortcut for using context
-//dont need i to impoty the context and useContext, just a single function
+//dont need i to import the context and useContext, just a single function
 
-const TokenContext = createContext() //creatContext built-in react hook. allows us to crreate a global state variable that can be passed to components.
+const TokenContext = createContext() //createContext built-in react hook. allows us to create a global state variable that can be passed to components.
 
 //hooks are react-only, a single call that do something under the hood. 
 
@@ -12,13 +12,13 @@ export function useTokenContext () { //export doesn't work with ES6 syntax like 
     return useContext(TokenContext)
 }
 //camel case and 'use' means our own hook
-//this constum hook will provide token and setToken
+//this custom hook will provide token and setToken
 
 export default function TokenContextProvider({children}) { //components should be Pascal cap. {children} is same as props.children
 //provider is the one giving info to other sub-components.
     const [token, setToken] = useState(() => {
         const lsToken = localStorage.getItem('token')
-        return lsToken.trim() === undefined || lsToken === null || typeof lsToken !== 'string' ? "" : lsToken
+        return (lsToken.trim() === undefined || lsToken === null || typeof lsToken !== 'string') ? "" : lsToken
     }) //can have static variable or function in useState
     
     useEffect(() => {
