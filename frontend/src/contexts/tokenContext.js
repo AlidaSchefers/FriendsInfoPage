@@ -20,6 +20,7 @@ export default function TokenContextProvider({children}) { //components should b
         const lsToken = localStorage.getItem('token')
         return (lsToken.trim() === undefined || lsToken === null || typeof lsToken !== 'string') ? "" : lsToken
     }) //can have static variable or function in useState
+    //problem: "lsToken.trim() === undefined" is ok in firefox but not chrome. removing the .trim() makes chrome work.
     
     useEffect(() => {
         //make a request with token to check if valid
