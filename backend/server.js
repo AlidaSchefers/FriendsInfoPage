@@ -5,6 +5,22 @@ require('dotenv').config()
 const databaseConnect = require('./databaseConnect')
 const CORs = require('cors')
 
+// server.use(function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+//     res.header(
+//       'Access-Control-Allow-Headers',
+//       'Origin, X-Requested-With, Content-Type, Accept'
+//     );
+//     next();
+//   });
+
+// server.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     res.header("Access-Control-Allow-Headers", "x-access-token, Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+
 databaseConnect()
 server.use(CORs())
 server.use(express.static('public'))
