@@ -61,7 +61,8 @@ export default function Navigation() {
 
     return (
         <div id="nav">
-            {localStorage.getItem('token')}
+            {/* {localStorage.getItem('token')} */}
+            --------------<br />
             {renderPage()}
             {renderButtons()}
             {renderLogoutButton()}

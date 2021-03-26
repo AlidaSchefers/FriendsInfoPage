@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import parse from 'html-react-parser'
 import { values } from '../config/navButtonsConfig'
-import {useFriendsInfoContext} from '../contexts/friendsInfoContext'
+// import {useFriendsInfoContext} from '../contexts/friendsInfoContext'
 // const token = localStorage.getItem('token')
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDRiNmI2ZGI3ZmU2NTIyZGM4NTQ1ZTQiLCJpYXQiOjE2MTU1NTY1OTB9.po2EGAJ-OGJp-jWFN7gU64hsJ0cemAtaYngpNjJpvGE'
 
@@ -45,13 +45,13 @@ const useAxiosToGetFriendsArr = () => {
 
 
 export default function FriendsList() {
-    const {friendsInfo, setFriendsInfo} = useFriendsInfoContext()
-    console.log("friendsInfo:")
-    console.log(friendsInfo)
-    console.log("friendsInfo from local storage:")
-    console.log(localStorage.getItem('friendsInfo'))
-    console.log(typeof localStorage.getItem('friendsInfo'))
-    console.log("-------------")
+    // const {friendsInfo, setFriendsInfo} = useFriendsInfoContext()
+    // console.log("friendsInfo:")
+    // console.log(friendsInfo)
+    // console.log("friendsInfo from local storage:")
+    // console.log(localStorage.getItem('friendsInfo'))
+    // console.log(typeof localStorage.getItem('friendsInfo'))
+    // console.log("-------------")
     
     return (
         <table>

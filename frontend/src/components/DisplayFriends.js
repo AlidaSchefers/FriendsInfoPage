@@ -9,6 +9,13 @@ export default function DisplayFriends() {
     //             >Logout</button>
     //         )
     // }
+
+    // axios.get('http://localhost:4000/users/getFriendsList', {headers: {'auth-token': token}})
+    //     .then(({data}) => {
+    //         // setListOfFriendsState({data})
+    //         console.log(data[0].name)
+    //         listOfFriends += data[0].name
+    //     })
     
     
     return(
