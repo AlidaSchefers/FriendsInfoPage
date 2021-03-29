@@ -37,7 +37,7 @@ function GivePic(locationInput) {
 
     return(
     <div>
-    <h3>Current Weather: Clear</h3>
+    <h3>Current Weather: TBD</h3>
     <img src={Clear} alt="alt text" width="500" height="600"></img>
     {/* {imageJSX} */}
     {/* {parsedimageJSXString} */}
