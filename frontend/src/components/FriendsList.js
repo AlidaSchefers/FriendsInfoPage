@@ -21,7 +21,7 @@ const GiveFriendsArr = () => {
     console.log(token)
     
     const [listOfFriendsState, setListOfFriendsState] = useState([])
-    let listOfFriends = '';
+    let listOfFriends;
 
     useEffect(() => {
         getFriendsArrWAxios()
@@ -43,22 +43,36 @@ const GiveFriendsArr = () => {
     if (listOfFriendsState.length > 0) {
         for(let i = 0; i < listOfFriendsState.length; i++) {
             // listOfFriends += '<tr><td>'+listOfFriendsState[i].name+'</td><td>'+listOfFriendsState[i].location+'</td></tr>'
-            listOfFriends += 
-                (`<tr><td>${listOfFriendsState[i].name}</td><td>${listOfFriendsState[i].location}</td><td><button type="button" onClick=${DeleteFriendFunc(listOfFriendsState[i].name)}>Delete Friend</button></td></tr>`)
+            // listOfFriends += ('<tr><td>'+listOfFriendsState[i].name+'</td><td>'+listOfFriendsState[i].location+'</td><td><button type="button" onClick='+DeleteFriendFunc(listOfFriendsState[i].name)+'>Delete Friend</button></td></tr>')
+            // listOfFriends += ('<tr><td>'+listOfFriendsState[i].name+'</td><td>'+listOfFriendsState[i].location+'</td><td><button type="button" onClick={DeleteFriendFunc(listOfFriendsState[i].name)}>Delete Friend</button></td></tr>')
+            // listOfFriends += (`<tr><td>${listOfFriendsState[i].name}</td><td>${listOfFriendsState[i].location}</td><td><button type="button" onClick=${() => {DeleteFriendFunc(listOfFriendsState[i].name)}}>Delete Friend</button></td></tr>`)
+            listOfFriends += <tr><td>{listOfFriendsState[i].name}</td><td>{listOfFriendsState[i].location}</td><td><button type="button" onClick={() => {DeleteFriendFunc(listOfFriendsState[i].name)}}>Delete Friend</button></td></tr>
+            // {() => {
+            //     submitFunc(formData, resetForm)
+            // }}
         }
     } 
+    console.log("listOfFriends--")
+    console.log(listOfFriends)
     return listOfFriends
 }
 
+// const createFriendJSX = (friendObj) => {
+
+// }
+
 const DeleteFriendFunc = (friendName) => {
-    console.log("token2:")
-    console.log(token)
-    axios.post('http://localhost:4000/users/deleteFriend', {
-        headers: {'auth-token': token}, 
-        'name': friendName
-        })
-        .then(console.log('user deleted'))
-        .catch(error => console.error(`Error: ${error}`))
+    console.log("user tried to delete the friend "+ friendName)
+    
+    
+    // console.log("token2:")
+    // console.log(token)
+    // axios.post('http://localhost:4000/users/deleteFriend', {
+    //     headers: {'auth-token': token}, 
+    //     'name': friendName
+    //     })
+    //     .then(console.log('user deleted'))
+    //     .catch(error => console.error(`Error: ${error}`))
 }
 
 
@@ -77,7 +91,10 @@ export default function FriendsList() {
                         <td>Hardcode Name1</td>
                         <td>Hardcode Location1</td>
                     </tr>
-                    {parse(GiveFriendsArr())} 
+                    {/* <tr><td>NAME</td><td>LOCATION</td><td><button type="button" onClick={() => DeleteFriendFunc("FriendNameTest")}>Console log confirmation</button></td></tr> */}
+                    {/* <tr><td>NAME</td><td>LOCATION</td><td><button type="button" onClick={() => console.log("button was pressed")}>Console log confirmation</button></td></tr> */}
+                    {GiveFriendsArr()} 
+                    {/* {parse(GiveFriendsArr())}  */}
                 </tbody>
             </table>
             {/* {parse(GiveFriendsArr())}  */}
