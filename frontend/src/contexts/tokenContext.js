@@ -24,7 +24,7 @@ export default function TokenContextProvider({children}) { //components should b
     
     useEffect(() => {
         //make a request with token to check if valid
-        console.log('testing123');
+        // console.log('testing123');
         if (token !== ""){
             axios.get('http://localhost:4000/users/checktoken', {
                 headers: {'auth-token': token}
