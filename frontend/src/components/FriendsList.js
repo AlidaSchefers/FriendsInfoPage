@@ -9,10 +9,73 @@ const token = localStorage.getItem('token')
 
         // 1) making the rows with a STRING LITERAL and a PARSER ------------------------------------------------------------------------------------------
 
+// const GiveFriendsArr = () => {
+    
+//     const [listOfFriendsState, setListOfFriendsState] = useState([])
+//     let listOfFriends;
+
+//     useEffect(() => {
+//         getFriendsArrWAxios()
+//     }, []);
+    
+//     const getFriendsArrWAxios = () => {
+//         axios.get('http://localhost:4000/users/getFriendsList', {headers: {'auth-token': token}})
+//         .then(({data}) => {
+//             setListOfFriendsState(data) //e.g. {{ _id: "60628a792b6f241e5d881394", name: "Emily", location: "Portland, Oregon" }, { _id: "60628a792b6f241e5d894864", name: "John", location: "Paris, France" }}
+//             console.log("data:")
+//             console.log(data)
+//         })
+//         .catch(error => console.error(`Error: ${error}`))
+//     }
+
+//     if (listOfFriendsState.length > 0) {
+//         for(let i = 0; i < listOfFriendsState.length; i++) {
+//             listOfFriends += <tr><td>{listOfFriendsState[i].name}</td><td>{listOfFriendsState[i].location}</td><td><button type="button" onClick={() => DeleteFriendFunc(listOfFriendsState[i].name)}>Delete Friend</button></td></tr>
+//         }
+//     } 
+//     console.log("listOfFriends")
+//     console.log(listOfFriends)
+
+//     return listOfFriends
+// }
+
+// const DeleteFriendFunc = (friendName) => {
+//     console.log("User tried to delete the friend "+ friendName) 
+// }
+
+// export default function FriendsList() {
+//     return (
+//         <div>
+//             <h3>Current friends</h3>
+//             <table>
+//                 <tbody>
+//                     <tr>
+//                         <th>Name</th>
+//                         <th>Location</th>
+//                         <th>Delete button</th>
+//                     </tr>
+//                     <tr>
+//                         <td>Hardcode Name1</td>
+//                         <td>Hardcode Location1</td>
+//                         <th>
+//                             <button type="button" onClick={() => DeleteFriendFunc("Hardcode Name1")}
+//                                 >Delete Friend
+//                             </button>
+//                         </th>
+//                     </tr>
+//                     {GiveFriendsArr()} 
+//                 </tbody>
+//             </table>
+//         </div>
+//     )
+// }
+
+        // 2) making rows with JSX and no parser ------------------------------------------------------------------------------------------
+
 const GiveFriendsArr = () => {
     
     const [listOfFriendsState, setListOfFriendsState] = useState([])
-    let listOfFriends = '';
+    // let listOfFriends = '';
 
     useEffect(() => {
         getFriendsArrWAxios()
@@ -26,20 +89,30 @@ const GiveFriendsArr = () => {
         .catch(error => console.error(`Error: ${error}`))
     }
 
-    if (listOfFriendsState.length > 0) {
-        for(let i = 0; i < listOfFriendsState.length; i++) {
-            listOfFriends += <tr><td>{listOfFriendsState[i].name}</td><td>{listOfFriendsState[i].location}</td><td><button type="button" onClick={() => DeleteFriendFunc(listOfFriendsState[i].name)}>Delete Friend</button></td></tr>
-        }
-    } 
-
-    return listOfFriends
+    // if (listOfFriendsState.length > 0) {
+    //     for(let i = 0; i < listOfFriendsState.length; i++) {
+    //         listOfFriends += (`<tr>
+    //             <td>${listOfFriendsState[i].name}</td>
+    //             <td>${listOfFriendsState[i].location}</td>
+    //             <td>
+    //                 <button onClick='${()=>DeleteFriendFunc(listOfFriendsState[i].name)}'>
+    //                     Delete Friend
+    //                 </button>
+    //             </td>
+    //         </tr>`)
+    //         // listOfFriends += (`<tr><td>${listOfFriendsState[i].name}</td><td>${listOfFriendsState[i].location}</td><td><button onClick='${()=>DeleteFriendFunc(listOfFriendsState[i].name)}'>Delete Friend</button></td></tr>`)
+    //     }
+    // } 
+    // return listOfFriends
+    return listOfFriendsState
 }
 
 const DeleteFriendFunc = (friendName) => {
-    console.log("User tried to delete the friend "+ friendName) 
+    console.log("user tried to delete the friend "+ friendName) 
 }
 
 export default function FriendsList() {
+    //use map inside the return
     return (
         <div>
             <table>
@@ -58,77 +131,18 @@ export default function FriendsList() {
                             </button>
                         </th>
                     </tr>
-                    {GiveFriendsArr()} 
+                    {GiveFriendsArr().map((friend) => (
+                        <tr>
+                            <td>{friend.name}</td>
+                            <td>{friend.location}</td>
+                            <td><button onClick={()=>DeleteFriendFunc(friend.name)}>Delete Friend</button></td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-        </div>
+        </div>  
     )
 }
-
-        // 2) making rows with JSX and no parser ------------------------------------------------------------------------------------------
-
-// const GiveFriendsArr = () => {
-    
-//     const [listOfFriendsState, setListOfFriendsState] = useState([])
-//     let listOfFriends = '';
-
-//     useEffect(() => {
-//         getFriendsArrWAxios()
-//     }, []);
-    
-//     const getFriendsArrWAxios = async () => {
-//         await axios.get('http://localhost:4000/users/getFriendsList', {headers: {'auth-token': token}})
-//         .then(({data}) => {
-//             setListOfFriendsState(data) //e.g. {{ _id: "60628a792b6f241e5d881394", name: "Emily", location: "Portland, Oregon" }, { _id: "60628a792b6f241e5d894864", name: "John", location: "Paris, France" }}
-//         })
-//         .catch(error => console.error(`Error: ${error}`))
-//     }
-
-//     if (listOfFriendsState.length > 0) {
-//         for(let i = 0; i < listOfFriendsState.length; i++) {
-//             listOfFriends += (`<tr>
-//                 <td>${listOfFriendsState[i].name}</td>
-//                 <td>${listOfFriendsState[i].location}</td>
-//                 <td>
-//                     <button onClick='${()=>DeleteFriendFunc(listOfFriendsState[i].name)}'>
-//                         Delete Friend
-//                     </button>
-//                 </td>
-//             </tr>`)
-//         }
-//     } 
-//     return listOfFriends
-// }
-
-// const DeleteFriendFunc = (friendName) => {
-//     console.log("user tried to delete the friend "+ friendName) 
-// }
-
-// export default function FriendsList() {
-//     return (
-//         <div>
-//             <table>
-//                 <tbody>
-//                     <tr>
-//                         <th>Name</th>
-//                         <th>Location</th>
-//                         <th>Delete button</th>
-//                     </tr>
-//                     <tr>
-//                         <td>Hardcode Name1</td>
-//                         <td>Hardcode Location1</td>
-//                         <th>
-//                             <button type="button" onClick={() => DeleteFriendFunc("Hardcode Name1")}
-//                                 >Delete Friend
-//                             </button>
-//                         </th>
-//                     </tr>
-//                     {parse(GiveFriendsArr())} 
-//                 </tbody>
-//             </table>
-//         </div>  
-//     )
-// }
 
         // Everything ------------------------------------------------------------------------------------------------------------------------
 
