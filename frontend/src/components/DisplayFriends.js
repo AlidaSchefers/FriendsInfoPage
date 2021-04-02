@@ -1,5 +1,6 @@
 import React from 'react'
 import FriendsList from './FriendsList'
+import AddFriend from './addFriend'
 
 export default function DisplayFriends() {
     // const renderLogoutButton = () => { //when press the button, console.log does not show. only until refresh or change page compnents (like do to welcome page)
@@ -23,6 +24,8 @@ export default function DisplayFriends() {
         <div>
         <h1>FRIENDS DISPLAY</h1>
         <FriendsList />
+        <br />
+        <AddFriend />
         {/* <button
                         onClick={() => {
                             localStorage.setItem('token', null)
