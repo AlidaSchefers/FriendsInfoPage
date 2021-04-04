@@ -11,12 +11,9 @@ const submitMsg = "Add Friend"
 
 export default function createFriend() {
     const submitFunc = (formData, resetForm) => {
-        axios.post('http://localhost:4000/users/createFriend', {...formData, headers: {'auth-token': localStorage.getItem('token')}})
+        axios.post('http://localhost:4000/users/createFriend', {...formData}, {headers: {'auth-token': localStorage.getItem('token')}})
         .then(res => {
             alert("New Friend Added.")
-            // console.log(`token createFriend file: ${res.data}`)
-            // localStorage.setItem('token', res.data)
-            console.log(res.data);
             resetForm()
         })
         .catch(err => {
