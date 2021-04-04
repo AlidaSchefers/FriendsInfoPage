@@ -54,7 +54,8 @@ export default function LogDecision() {
     if(isLoggedIn){
         return (
         <div>
-        <DisplayFriends />
+        {/* <DisplayFriends /> */}
+        <Navigation />
         <button
                         onClick={() => {
                             localStorage.setItem('token', '')
