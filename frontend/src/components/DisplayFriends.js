@@ -22,7 +22,7 @@ export default function DisplayFriends() {
     
     return(
         <div>
-        <h1>FRIENDS DISPLAY</h1>
+        <h1>SETTINGS: Friends</h1>
         <FriendsList />
         <br />
         <AddFriend />
